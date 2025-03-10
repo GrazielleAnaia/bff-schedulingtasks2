@@ -33,7 +33,7 @@ public class CustomerController {
 
     @Operation(summary = "Save customer", description = "Create a new customer")
     @ApiResponse(responseCode = "200", description = "Customer successfully saved")
-    @ApiResponse(responseCode = "400", description = "Customer already registered")
+    @ApiResponse(responseCode = "409", description = "Customer already registered")
     @ApiResponse(responseCode = "500", description = "Server error")
     @PostMapping
     public ResponseEntity<CustomerDTOResponse> createCustomer(@RequestBody CustomerDTORequest customerDTO) {
@@ -51,8 +51,9 @@ public class CustomerController {
 
     @Operation(summary = "Search customer data by email", description = "Search customer by email")
     @ApiResponse(responseCode = "200", description = "Customer successfully found")
-    @ApiResponse(responseCode = "404", description = "Customer not found")
+    @ApiResponse(responseCode = "403", description = "Customer not found")
     @ApiResponse(responseCode = "500", description = "Server error")
+    @ApiResponse(responseCode = "401", description = "Invalid credentials")
     @GetMapping
     public ResponseEntity<CustomerDTOResponse>findCustomerByEmail(@RequestParam("email") String email,
                                                            @RequestHeader(value = "Authorization", required = false) String token) {
@@ -63,8 +64,9 @@ public class CustomerController {
 
     @Operation(summary = "Delete customer by email", description = "Delete customer by email")
     @ApiResponse(responseCode = "200", description = "Customer successfully deleted")
-    @ApiResponse(responseCode = "404", description = "Customer not found")
+    @ApiResponse(responseCode = "403", description = "Customer not found")
     @ApiResponse(responseCode = "500", description = "Server error")
+    @ApiResponse(responseCode = "401", description = "Invalid credentials")
     public ResponseEntity<Void> deleteCustomerByEmail(@PathVariable String email,
                                                       @RequestHeader(value = "Authorization", required = false) String token) {
         service.deleteCustomerByEmail(email, token);
@@ -74,8 +76,9 @@ public class CustomerController {
     @PutMapping
     @Operation(summary = "Update customer data", description = "Update customer data")
     @ApiResponse(responseCode = "200", description = "Customer successfully updated")
-    @ApiResponse(responseCode = "404", description = "Customer not found")
+    @ApiResponse(responseCode = "403", description = "Customer not found")
     @ApiResponse(responseCode = "500", description = "Server error")
+    @ApiResponse(responseCode = "401", description = "Invalid credentials")
     public ResponseEntity<CustomerDTOResponse> updateCustomerData(@RequestBody CustomerDTORequest customerDTO,
                                                           @RequestHeader(value = "Authorization", required = false) String token) {
         return ResponseEntity.ok(service.updateCustomer(customerDTO, token));
@@ -84,8 +87,9 @@ public class CustomerController {
     @PutMapping("/residence")
     @Operation(summary = "Update customer address", description = "Update customer address")
     @ApiResponse(responseCode = "200", description = "Address successfully updated")
-    @ApiResponse(responseCode = "404", description = "Customer not found")
+    @ApiResponse(responseCode = "403", description = "Customer not found")
     @ApiResponse(responseCode = "500", description = "Server error")
+    @ApiResponse(responseCode = "401", description = "Invalid credentials")
     public ResponseEntity<ResidenceDTOResponse> updateResidence(@RequestBody ResidenceDTORequest residenceDTO,
                                                                 @RequestParam("id") Long id,
                                                                 @RequestHeader(value = "Authorization", required = false) String token) {
@@ -95,8 +99,9 @@ public class CustomerController {
     @PutMapping("/phone")
     @Operation(summary = "Update customer phone", description = "Update customer phone")
     @ApiResponse(responseCode = "200", description = "Phone successfully updated")
-    @ApiResponse(responseCode = "404", description = "Customer not found")
+    @ApiResponse(responseCode = "403", description = "Customer not found")
     @ApiResponse(responseCode = "500", description = "Server error")
+    @ApiResponse(responseCode = "401", description = "Invalid credentials")
     public ResponseEntity<PhoneDTOResponse> updatePhone(@RequestBody PhoneDTORequest phoneDTO,
                                                         @RequestParam("id") Long id,
                                                         @RequestHeader(value = "Authorization", required = false) String token) {
@@ -106,8 +111,9 @@ public class CustomerController {
     @PostMapping("/residence")
     @Operation(summary = "Register customer address", description = "Register customer address")
     @ApiResponse(responseCode = "200", description = "Address successfully saved")
-    @ApiResponse(responseCode = "404", description = "Customer not found")
+    @ApiResponse(responseCode = "403", description = "Customer not found")
     @ApiResponse(responseCode = "500", description = "Server error")
+    @ApiResponse(responseCode = "401", description = "Invalid credentials")
     public ResponseEntity<ResidenceDTOResponse> addResidence(@RequestBody ResidenceDTORequest residenceDTO,
                                                      @RequestHeader(value = "Authorization", required = false) String token) {
         return ResponseEntity.ok(service.addResidence(residenceDTO, token));
@@ -116,8 +122,9 @@ public class CustomerController {
     @PostMapping("/phone")
     @Operation(summary = "Register customer phone", description = "Register customer phone")
     @ApiResponse(responseCode = "200", description = "Phone successfully saved")
-    @ApiResponse(responseCode = "404", description = "Customer not found")
+    @ApiResponse(responseCode = "403", description = "Customer not found")
     @ApiResponse(responseCode = "500", description = "Server error")
+    @ApiResponse(responseCode = "401", description = "Invalid credentials")
     public ResponseEntity<PhoneDTOResponse> addPhone(@RequestBody PhoneDTORequest phoneDTO,
                                              @RequestHeader(value = "Authorization", required = false) String token) {
         return ResponseEntity.ok(service.addPhone(phoneDTO, token));
