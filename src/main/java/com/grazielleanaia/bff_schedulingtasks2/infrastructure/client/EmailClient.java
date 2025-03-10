@@ -1,6 +1,7 @@
 package com.grazielleanaia.bff_schedulingtasks2.infrastructure.client;
 
 
+import com.grazielleanaia.bff_schedulingtasks2.business.dto.in.TasksDTORequest;
 import com.grazielleanaia.bff_schedulingtasks2.business.dto.out.TasksDTOResponse;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
